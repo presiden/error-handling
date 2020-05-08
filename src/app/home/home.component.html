@@ -1,0 +1,184 @@
+<div class=container-fluid>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        Resubmission
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Add Document</a>
+                </li>
+            </ul>
+            <button class="btn btn-outline-danger my-2 my-md-0" type="submit">Logout</button>
+        </div>
+    </nav>
+    <hr>
+
+    <!-- <ngb-datepicker #dp [(ngModel)]="modeldate" (navigate)="navigateEvent($event)"></ngb-datepicker>
+
+    <button class="btn btn-sm btn-outline-primary mr-2" (click)="selectToday()">Select Today</button>
+    <button class="btn btn-sm btn-outline-primary mr-2" (click)="setCurrent()">To current month</button>
+    <button class="btn btn-sm btn-outline-primary mr-2" (click)="setDate()">To Feb 2013</button>
+
+
+    <pre>Month: {{ date.month }}.{{ date.year }}</pre>
+    <pre>Model: {{ model | json }}</pre>
+
+    <div class="input-group">
+    
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+        
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">📅</button>
+        </div>
+     
+      </div>
+      <hr />
+      <code>Model: {{ model | json }}</code> -->
+
+    <div class="row">
+        <div class="col-md-12 mb">
+            <form class="form-inline float-right">
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="fromLabel">From</label>
+                        <input #dfrom class="form-control form-control-sm" placeholder="yyyy-mm-dd" name="dateFrom"
+                            [(ngModel)]="modelFrom" ngbDatepicker #df="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="df.toggle()"
+                                type="button"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="toLabel">To</label>
+                        <input #dto class="form-control form-control-sm" placeholder="yyyy-mm-dd" name="dateTo"
+                            [(ngModel)]="modelTo" ngbDatepicker #dt="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="dt.toggle()"
+                                type="button"></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-12 mb">
+            <form>
+                <div class="form-group row justify-content-end">
+                    <label for="typeLabel">Type</label>
+                    <div class="col-md-2">
+                        <select #type id="typeDoc" class="form-control form-control-sm">
+                            <option value="1" selected>PruCare</option>
+                            <option value="2">Eventing</option>
+                            <option value="3">SME</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-12">
+            <div class="float-right">
+                <button (click)="getDocument(dfrom.value, dto.value, type.value)" class="btn btn-primary btn-sm btn-block">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <table id="docTable" class="table table-sm table-hover mt">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Doc ID</th>
+                <th scope="col">Table Name</th>
+                <th scope="col">Error Massage</th>
+                <th scope="col">Type</th>
+                <th scope="col">Status</th>
+                <th scope="col">State</th>
+                <th scope="col">Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td colspan="2">Larry the Bird</td>
+                <td>@twitter</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- <div class="container-fluid">
+    <div class="row">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div>
+                <div class="navbar-header">
+                    <label class="navbar-brand">Resubmission</label>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active" id="navHome"><a class="nav-link" href="#">Home</a></li>
+                        <li class="active" id="navAdd"><a class="nav-link" href="#">Add Document</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div> -->
+
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <a class="navbar-brand" href="#">Resubmission</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Add Document</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-secondary btn-md">Logout</button>
+        </div>
+    </div>
+</div> -->
+<div>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>
