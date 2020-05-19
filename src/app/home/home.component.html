@@ -15,38 +15,45 @@
     </nav>
     <hr>
     <div class="row">
-        <div class="col-md-12 mb">
-            <form class="form-inline float-right">
-                <div class="form-group">
-                    <div class="input-group">
-                        <label for="fromLabel">From</label>
-                        <input #dfrom class="form-control form-control-sm" placeholder="yyyy-mm-dd" name="dateFrom"
-                            [(ngModel)]="modelFrom" ngbDatepicker #df="ngbDatepicker">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary calendar" (click)="df.toggle()"
-                                type="button"></button>
+        <div class="col-md-12">
+            <form class="form-group">
+                <div class="row justify-content-end">
+                    <div class="col-md-1">
+                        <label for="toLabel">From</label>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input #dfrom class="form-control form-control-sm" placeholder="yyyy-mm-dd"
+                                    name="dateFrom" [(ngModel)]="modelFrom" ngbDatepicker #df="ngbDatepicker">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary calendar" (click)="df.toggle()"
+                                        type="button"></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="input-group">
+                    <div class="col-md-1">
                         <label for="toLabel">To</label>
-                        <input #dto class="form-control form-control-sm" placeholder="yyyy-mm-dd" name="dateTo"
-                            [(ngModel)]="modelTo" ngbDatepicker #dt="ngbDatepicker">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary calendar" (click)="dt.toggle()"
-                                type="button"></button>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input #dto class="form-control form-control-sm" placeholder="yyyy-mm-dd" name="dateTo"
+                                    [(ngModel)]="modelTo" ngbDatepicker #dt="ngbDatepicker">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary calendar" (click)="dt.toggle()"
+                                        type="button"></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
-
-        <div class="col-md-12 mb">
-            <form>
-                <div class="form-group row justify-content-end">
-                    <label for="typeLabel">Type</label>
+                <div class="row justify-content-end">
+                    <div class="col-md-1">
+                        <label for="typeLabel">Type</label>
+                    </div>
                     <div class="col-md-2">
                         <select #type id="typeDoc" class="form-control form-control-sm">
                             <option *ngFor="let x of types" [value]="x.value" [selected]="x.value==docFilter.type">
@@ -54,16 +61,15 @@
                         </select>
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-10"></div>
-                <div class="col-md-2">
-                    <button (click)="getDocument(dfrom.value, dto.value, type.value)"
-                        class="btn btn-primary btn-sm btn-block">Search</button>
+                <br>
+                <div class="row justify-content-end">
+                    <div class="col-md-2">
+                        <button (click)="getDocument(dfrom.value, dto.value, type.value)"
+                            class="btn btn-primary btn-sm btn-block">Search</button>
+                    </div>
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
 

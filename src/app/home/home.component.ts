@@ -6,7 +6,7 @@ import { Doc } from "../models/document.model";
 import { DocFilter } from "../models/document-filter.model";
 
 import { DocumentService } from '../services/document.service';
-import { NgbModal, ModalDismissReasons, NgbDateStruct, NgbDatepicker, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbDateStruct, NgbDatepicker, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from '../services/shared.service';
 
@@ -18,13 +18,10 @@ import { SharedService } from '../services/shared.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  model: Date;
-  modelFrom: Date;
-  modelTo: Date;
+  modelFrom: NgbDate;// = new NgbDate(2020,10,17);
+  modelTo: NgbDate;
   doc: Doc = new Doc();
-  docs: Doc[];
   docFilter: DocFilter;
-  
   
   types: Array<Object> = [
     { value: 0, name: "PruCare" },
