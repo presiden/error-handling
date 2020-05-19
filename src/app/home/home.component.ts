@@ -4,11 +4,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { Doc } from "../models/document.model";
 import { DocFilter } from "../models/document-filter.model";
-import { QueryLa } from '../models/query.model';
-import { LifeAsiaDocument } from '../models/lifeasia-document.model';
+
 import { DocumentService } from '../services/document.service';
-import { UserService } from '../services/user.service';
-import { NgbDateStruct, NgbDatepicker, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbDateStruct, NgbDatepicker, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SharedService } from '../services/shared.service';
+
+// enum docType { PruCare = 1, Eventing = 2, SME = 3 };
 
 @Component({
   selector: 'app-home',
@@ -19,57 +21,56 @@ export class HomeComponent implements OnInit {
   model: Date;
   modelFrom: Date;
   modelTo: Date;
-  doc: Doc;
+  doc: Doc = new Doc();
+  docs: Doc[];
   docFilter: DocFilter;
-  queryLa: QueryLa
-  docLa: LifeAsiaDocument;
+  
+  
+  types: Array<Object> = [
+    { value: 0, name: "PruCare" },
+    { value: 1, name: "Eventing" },
+    { value: 2, name: "SME" }
+  ];
 
-  // modeldate: NgbDateStruct;
-  // date: { year: number, month: number };
-  // @ViewChild('dp') dp: NgbDatepicker;
+  constructor(private http: HttpClient, private router: Router, private docService: DocumentService, private sharedService: SharedService) {
 
-  constructor(private http: HttpClient, private docService: DocumentService, private calendar: NgbCalendar) { }
+    this.docFilter = this.sharedService.docFilter;
+    console.log("this.docFilter:");
+    console.log(this.docFilter);
+  }
 
   ngOnInit(): void {
   }
 
-  // selectToday() {
-  //   this.modeldate = this.calendar.getToday();
-  // }
+  public editDetail(id: String) {
+    this.sharedService.setDetail(this.docFilter, id);
+    this.router.navigateByUrl("/edit");
+  }
 
-  // setCurrent() {
-  //   //Current Date
-  //   this.dp.navigateTo()
-  // }
-  // setDate() {
-  //   //Set specific date
-  //   this.dp.navigateTo({ year: 2013, month: 2 });
-  // }
+  public getEdit(docFilter: DocFilter) {
+    this.docFilter = docFilter;
+  }
 
-  // navigateEvent(event) {
-  //   this.date = event.next;
-  // }
-
-  getDocument(startDate: any, endDate: any, type: any) {
+  getDocument(startDate: any, endDate: any, doctype: any) {
     this.docFilter = new DocFilter();
     this.docFilter.startDate = startDate;
     this.docFilter.endDate = endDate;
-    this.docFilter.type = type == 1 ? "PruCare" : 2 ? "Eventing" : 3 ? "SME" : "";
+    this.docFilter.type = doctype;
+    // this.docFilter.type = type == 1 ? "PruCare" : 2 ? "Eventing" : 3 ? "SME" : "";
 
+    console.log("this.docFilter:");
+    console.log(this.docFilter);
     this.docService.getDocument(this.docFilter).subscribe((res: any) => {
       this.docFilter.listDocument = res;
+
       console.log("getDocument:");
       console.log(res);
 
-      if (res.length > 0) {
-
-      } else {
-
+      if (!res) {
+        console.log("No data found");
       }
     });
 
-    // console.log("di luar:" + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds() + ":" + new Date().getMilliseconds());
-    // console.log(this.docFilter);
 
   }
 
@@ -83,7 +84,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public updateDocument(input: Doc) {
+  public updateDocument(input: any) {
 
     this.docService.updateDocument(input).subscribe((res: any) => {
       this.doc = res;
@@ -99,12 +100,12 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public pushErrToKafka(id: any, startDate: any, endDate: any, type: any) {
+  public pushErrToKafka(id: any, startDate: any, endDate: any, doctype: any) {
     this.docFilter = new DocFilter();
     this.docFilter.id = id;
     this.docFilter.startDate = startDate;
     this.docFilter.endDate = endDate;
-    this.docFilter.type = type == 1 ? "PruCare" : 2 ? "Eventing" : 3 ? "SME" : "";
+    this.docFilter.type = doctype;
 
     this.docService.pushErrToKafka(this.docFilter).subscribe((res: any) => {
       this.doc = res;
@@ -113,26 +114,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public queryLifeAsia(query: String, tableName: String) {
-    this.queryLa = new QueryLa();
-    this.queryLa.query = query;
-    this.queryLa.tableName = tableName;
-
-    this.docService.queryLifeAsia(this.queryLa).subscribe((res: any) => {
-      this.doc = res;
-      console.log("queryLifeAsia:");
-      console.log(res);
-    });
-  }
-
-  public pushLaToKafka(input: LifeAsiaDocument) {
-    this.docLa = new LifeAsiaDocument();
-
-    this.docService.pushLaToKafka(this.docLa).subscribe((res: any) => {
-      this.doc = res;
-      console.log("pushLaToKafka:");
-      console.log(res);
-    });
-  }
+  
 
 }

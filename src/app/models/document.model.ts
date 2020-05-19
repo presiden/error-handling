@@ -1,5 +1,5 @@
 export class Doc {
-    error_massage: string;
+    error_message: string;
     timestamps: string;
     doc: string;
     src_table_name: string;

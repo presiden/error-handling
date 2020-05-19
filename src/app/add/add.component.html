@@ -1,1 +1,79 @@
-<p>add works!</p>
+<div class=container-fluid>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">Resubmission</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/add" routerLinkActive="active">Add</a>
+                </li>
+            </ul>
+            <button class="btn btn-outline-danger my-2 my-md-0" type="submit">Logout</button>
+        </div>
+    </nav>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">Add Document</div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-12">
+            <form>
+                <div class="form-group row">
+                    <label for="add-tblname" class="col-sm-1 font-weight-bold font-small">Table Name</label>
+                    <div class="col-sm-6">
+                        <input #tblname class="form-control form-control-sm" type="text" id="add-tblname" placeholder=""
+                            value="">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="add-clause" class="col-sm-1 font-weight-bold font-small">Clause</label>
+                    <div class="col-sm-6">
+                        <input #clause class="form-control form-control-sm" type="text" id="add-clause" placeholder=""
+                            value="">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="add-syntax" class="col-sm-1 font-weight-bold font-small">Syntax</label>
+                    <div class="col-sm-6">
+                        <input #syntax class="form-control form-control-sm" type="text" id="add-syntax" placeholder=""
+                            value="">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="add-document" class="col-sm-1 font-weight-bold font-small">Document</label>
+                    <div class="col-sm-6">
+                        <textarea #document class="form-control form-control-sm" rows="5" id="add-document"
+                            value=""></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-2">
+                    <button (click)="queryLifeAsia()"class="btn btn-primary btn-sm btn-block">Query</button>
+                </div>
+                <div class="col-sm-2">
+                    <button (click)="pushLaToKafka()"class="btn btn-success btn-sm btn-block">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

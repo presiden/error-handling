@@ -7,7 +7,3 @@ export class DocFilter {
     type: string;
     listDocument: Array<Doc>;
 }
-
-// interface IDocument {
-//     [idx: number]: Document
-// }

@@ -1,0 +1,32 @@
+html, body { 
+    height: 100%; 
+    width: 100%;
+  }
+
+.tengah{
+    // background: #000000;
+    // height: 100vh;
+    // width: 100%;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+}
+
+.mb{
+    margin-bottom: 2vh;
+}  
+
+.font-small{
+    font-size: small;
+}
+
+.width-a{
+    width: 6vw;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+}
+
+.bold {
+    font-weight: bold;
+  }
