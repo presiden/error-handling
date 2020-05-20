@@ -14,35 +14,49 @@ export class AddComponent implements OnInit {
   queryLa: QueryLa;
   docLa: LifeAsiaDocument;
 
-  constructor(private docService: DocumentService) { }
+  constructor(private docService: DocumentService) {
+    this.queryLa = new QueryLa();
+    this.queryLa.tableName = "";
+    this.queryLa.clause = "";
+    this.queryLa.query = "select * from [input table name] where [input filter]";
+  }
 
   ngOnInit(): void {
   }
 
-  // public queryLifeAsia(query: String, tableName: String) {
+  onKeyup(event: KeyboardEvent) {
+    let tblname = this.queryLa.tableName == "" ? "[input table name]" : this.queryLa.tableName;
+    let clause = this.queryLa.clause == "" ? "[input filter]" : this.queryLa.clause;
+
+    this.queryLa.query = "select * from " + tblname + " where " + clause;
+  }
+
   public queryLifeAsia() {
-    let query: String;
-    let tableName: String;
+    let stringQuery: String = JSON.stringify(this.queryLa);
 
-    this.queryLa = new QueryLa();
-    this.queryLa.query = query;
-    this.queryLa.tableName = tableName;
+    console.log("this.queryLa:");
+    console.log(this.queryLa);
 
-    // this.docService.queryLifeAsia(this.queryLa).subscribe((res: any) => {
-    this.docService.queryLifeAsia().subscribe((res: any) => {
+    console.log("stringQuery:");
+    console.log(stringQuery);
+
+    this.docService.queryLifeAsia(stringQuery).subscribe((res: any) => {
       this.doc = res;
       console.log("queryLifeAsia:");
       console.log(res);
     });
   }
 
-  // public pushLaToKafka(input: LifeAsiaDocument) {
   public pushLaToKafka() {
-    let input: LifeAsiaDocument;
-    this.docLa = new LifeAsiaDocument();
+    let stringQuery: String = JSON.stringify(this.queryLa.documentLa);
 
-    // this.docService.pushLaToKafka(this.docLa).subscribe((res: any) => {
-    this.docService.pushLaToKafka().subscribe((res: any) => {
+    console.log("this.queryLa.documentLa:");
+    console.log(this.queryLa.documentLa);
+
+    console.log("stringQuery:");
+    console.log(stringQuery);
+
+    this.docService.pushLaToKafka(stringQuery).subscribe((res: any) => {
       this.doc = res;
       console.log("pushLaToKafka:");
       console.log(res);

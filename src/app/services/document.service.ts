@@ -50,7 +50,7 @@ export class DocumentService {
     )
   }
 
-  public pushErrToKafka(input: DocFilter) {
+  public pushErrToKafka(input: any) {
     return this.http.post(baseUrl + 'push/kafka/cb', input).pipe(
       map(response => {
         return response;
@@ -61,9 +61,7 @@ export class DocumentService {
     )
   }
 
-  // public queryLifeAsia(input: QueryLa) {
-  public queryLifeAsia() {
-    let input = "";
+  public queryLifeAsia(input: any) {
     return this.http.post(baseUrl + 'query/la', input).pipe(
       map(response => {
         return response;
@@ -74,14 +72,8 @@ export class DocumentService {
     )
   }
 
-  // public pushLaToKafka(input: LifeAsiaDocument) {
-  public pushLaToKafka() {
-    let input = "";
-    return this.http.post(baseUrl + 'push/kafka/la', [
-      {
-        "data": input
-      }
-    ]).pipe(
+  public pushLaToKafka(input: any) {
+    return this.http.post(baseUrl + 'push/kafka/la', input).pipe(
       map(response => {
         return response;
       }),

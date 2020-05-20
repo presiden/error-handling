@@ -26,49 +26,51 @@
         <div class="col-sm-12">
             <form>
                 <div class="form-group row">
-                    <label for="add-tblname" class="col-sm-1 font-weight-bold font-small">Table Name</label>
-                    <div class="col-sm-6">
-                        <input #tblname class="form-control form-control-sm" type="text" id="add-tblname" placeholder=""
-                            value="">
+                    <label for="add-tblname" class="col-sm-2 font-weight-bold font-small">Table Name</label>
+                    <div class="col-sm-8">
+                        <input #tableName class="form-control form-control-sm" type="text" id="add-tblname"
+                            placeholder="" [(ngModel)]="queryLa.tableName" name="tableName" (keyup)=onKeyup($event)>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="add-clause" class="col-sm-1 font-weight-bold font-small">Clause</label>
-                    <div class="col-sm-6">
+                    <label for="add-clause" class="col-sm-2 font-weight-bold font-small">Clause</label>
+                    <div class="col-sm-8">
                         <input #clause class="form-control form-control-sm" type="text" id="add-clause" placeholder=""
-                            value="">
+                            [(ngModel)]="queryLa.clause" name="clause" (keyup)=onKeyup($event)>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="add-syntax" class="col-sm-1 font-weight-bold font-small">Syntax</label>
-                    <div class="col-sm-6">
+                    <label for="add-syntax" class="col-sm-2 font-weight-bold font-small">Syntax Query</label>
+                    <div class="col-sm-8">
                         <input #syntax class="form-control form-control-sm" type="text" id="add-syntax" placeholder=""
-                            value="">
+                            [(ngModel)]="queryLa.query" name="query" disabled>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="add-document" class="col-sm-1 font-weight-bold font-small">Document</label>
-                    <div class="col-sm-6">
-                        <textarea #document class="form-control form-control-sm" rows="5" id="add-document"
-                            value=""></textarea>
+                    <label for="add-document" class="col-sm-2 font-weight-bold font-small">Document</label>
+                    <div class="col-sm-8">
+                        <textarea #documentLa class="form-control form-control-sm" rows="10" id="add-document" value=""
+                            [(ngModel)]="queryLa.documentLa" name="documentLa"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-2">
+                            <button (click)="queryLifeAsia()" class="btn btn-primary btn-sm btn-block">Query</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button (click)="pushLaToKafka()" class="btn btn-success btn-sm btn-block">Submit</button>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col-sm-12">
-            <div class="row">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-2">
-                    <button (click)="queryLifeAsia()"class="btn btn-primary btn-sm btn-block">Query</button>
-                </div>
-                <div class="col-sm-2">
-                    <button (click)="pushLaToKafka()"class="btn btn-success btn-sm btn-block">Submit</button>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 

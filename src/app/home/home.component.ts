@@ -18,11 +18,12 @@ import { SharedService } from '../services/shared.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  modelFrom: NgbDate;// = new NgbDate(2020,10,17);
+  modelFrom: NgbDate;
   modelTo: NgbDate;
   doc: Doc = new Doc();
+  docs: Doc[];
   docFilter: DocFilter;
-  
+
   types: Array<Object> = [
     { value: 0, name: "PruCare" },
     { value: 1, name: "Eventing" },
@@ -30,8 +31,11 @@ export class HomeComponent implements OnInit {
   ];
 
   constructor(private http: HttpClient, private router: Router, private docService: DocumentService, private sharedService: SharedService) {
-
     this.docFilter = this.sharedService.docFilter;
+
+    this.modelFrom = this.docFilter.startDate == null ? null : this.setDate(this.docFilter.startDate);
+    this.modelTo = this.docFilter.endDate == null ? null : this.setDate(this.docFilter.endDate);
+
     console.log("this.docFilter:");
     console.log(this.docFilter);
   }
@@ -39,36 +43,51 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  private setDate(input: String) {
+    input += "";
+    let splitString: String[] = input.split("-");
+    let year = +splitString[0];
+    let month = +splitString[1];
+    let day = +splitString[2];
+    let output: NgbDate = new NgbDate(year, month, day);
+
+    return output;
+  }
+
   public editDetail(id: String) {
+    this.docFilter.startDate = this.modelFrom == null ? "" : this.modelFrom.year + "-" + this.modelFrom.month + "-" + this.modelFrom.day;
+    this.docFilter.endDate = this.modelTo == null ? "" : this.modelTo.year + "-" + this.modelTo.month + "-" + this.modelTo.day;
+
     this.sharedService.setDetail(this.docFilter, id);
     this.router.navigateByUrl("/edit");
   }
 
-  public getEdit(docFilter: DocFilter) {
-    this.docFilter = docFilter;
-  }
-
   getDocument(startDate: any, endDate: any, doctype: any) {
-    this.docFilter = new DocFilter();
-    this.docFilter.startDate = startDate;
-    this.docFilter.endDate = endDate;
-    this.docFilter.type = doctype;
-    // this.docFilter.type = type == 1 ? "PruCare" : 2 ? "Eventing" : 3 ? "SME" : "";
+    this.docFilter.startDate = this.modelFrom == null ? "" : this.modelFrom.year + "-" + this.modelFrom.month + "-" + this.modelFrom.day;
+    this.docFilter.endDate = this.modelTo == null ? "" : this.modelTo.year + "-" + this.modelTo.month + "-" + this.modelTo.day;
 
-    console.log("this.docFilter:");
-    console.log(this.docFilter);
-    this.docService.getDocument(this.docFilter).subscribe((res: any) => {
-      this.docFilter.listDocument = res;
+    // let dateFrom: Date = this.docFilter.startDate == "" ? null : new Date(this.docFilter.startDate);
+    // let dateTo: Date = this.docFilter.endDate == "" ? null : new Date(this.docFilter.endDate);
 
-      console.log("getDocument:");
-      console.log(res);
+    // console.log("this.modelFrom:");
+    // console.log(this.modelFrom);
 
-      if (!res) {
-        console.log("No data found");
-      }
-    });
+    if (this.docFilter.startDate == "" || this.docFilter.endDate == "") {
+      alert("start date and end date must not empty");
+    } else if (this.docFilter.startDate > this.docFilter.endDate) {
+      alert("start date is higher than end date");
+    } else {
+      this.docService.getDocument(this.docFilter).subscribe((res: any) => {
+        this.docFilter.listDocument = res;
 
+        console.log("getDocument:");
+        console.log(res);
 
+        if (!res) {
+          console.log("No data found");
+        }
+      });
+    }
   }
 
   public getDocumentById(id: any) {
@@ -97,20 +116,23 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public pushErrToKafka(id: any, startDate: any, endDate: any, doctype: any) {
-    this.docFilter = new DocFilter();
-    this.docFilter.id = id;
-    this.docFilter.startDate = startDate;
-    this.docFilter.endDate = endDate;
-    this.docFilter.type = doctype;
+  // public pushErrToKafka(id: any, startDate: any, endDate: any, doctype: any) {
+  public pushErrToKafka(id: any) {
 
-    this.docService.pushErrToKafka(this.docFilter).subscribe((res: any) => {
+    this.docFilter.id = id;
+    this.docFilter.startDate = this.modelFrom == null ? "" : this.modelFrom.year + "-" + this.modelFrom.month + "-" + this.modelFrom.day;
+    this.docFilter.endDate = this.modelTo == null ? "" : this.modelTo.year + "-" + this.modelTo.month + "-" + this.modelTo.day;
+
+    let obj = {
+      "id": this.docFilter.id,
+      "startDate": this.docFilter.startDate,
+      "endDate": this.docFilter.endDate
+    };
+
+    this.docService.pushErrToKafka(obj).subscribe((res: any) => {
       this.doc = res;
       console.log("pushErrToKafka:");
       console.log(res);
     });
   }
-
-  
-
 }

@@ -55,8 +55,9 @@
                         <label for="typeLabel">Type</label>
                     </div>
                     <div class="col-md-2">
-                        <select #type id="typeDoc" class="form-control form-control-sm">
-                            <option *ngFor="let x of types" [value]="x.value" [selected]="x.value==docFilter.type">
+                        <select #type id="typeDoc" class="form-control form-control-sm" [(ngModel)]="docFilter.type"
+                            name="type">
+                            <option *ngFor="let x of types" [value]="x.name" [selected]="x.name==docFilter.type">
                                 {{x.name}}</option>
                         </select>
                     </div>
@@ -68,7 +69,6 @@
                             class="btn btn-primary btn-sm btn-block">Search</button>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
@@ -98,7 +98,7 @@
                     <td>{{doc.status}}</td>
                     <td>{{doc.state}}</td>
                     <td>{{doc.timestamps}}</td>
-                    <td *ngIf="doc.status=='Error'"><button (click)="editDetail(doc.id)"
+                    <td *ngIf="doc.status!='Submitted' && doc.type != 'Eventing'" ><button (click)="pushErrToKafka(doc.id)"
                             class="btn btn-primary btn-sm">Resubmit</button></td>
                 </tr>
             </tbody>
