@@ -6,11 +6,10 @@ import { EditComponent } from './edit/edit.component';
 import { AddComponent } from './add/add.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent},
-  { path: '',  component: LoginComponent},
-  // { path: 'edit/:datarow',  component: EditComponent},
-  { path: 'add',  component: AddComponent},
-  { path: 'edit',  component: EditComponent},
+  { path: '', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'add', component: AddComponent },
+  { path: 'edit', component: EditComponent }
 ];
 
 @NgModule({

@@ -1,32 +1,27 @@
 import { __decorate } from "tslib";
 import { Component } from '@angular/core';
+import { Login } from "../models/login.model";
 let LoginComponent = class LoginComponent {
-    constructor(http, userService, fb) {
+    constructor(http, loginService) {
         this.http = http;
-        this.userService = userService;
-        this.fb = fb;
-        this.products = [];
-        this.getUser();
+        this.loginService = loginService;
     }
     ngOnInit() {
     }
-    getUser() {
-        this.userService.getUser().subscribe((res) => {
-            this.user = res.data;
-            console.log("tes user");
-            console.log(this.user);
-            console.log(res);
-        });
-    }
-    postUser(username, password) {
+    login(username, password) {
+        this.user = new Login();
         this.user.username = username;
         this.user.password = password;
-        console.log("postUser:");
-        console.log(this.user);
-        this.userService.postUser(this.user).subscribe((res) => {
-            this.user = res.data;
-            console.log("response:");
+        this.loginService.login(this.user).subscribe((res) => {
+            this.user = res;
+            console.log("login:");
             console.log(res);
+            if (this.user.username != null) {
+                console.log("login success");
+            }
+            else {
+                console.log("login failed");
+            }
         });
     }
 };

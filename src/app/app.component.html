@@ -1,1 +1,21 @@
+<div class=container-fluid *ngIf="!(router.url == '/')">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">Resubmission</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/add" routerLinkActive="active">Add</a>
+                </li>
+            </ul>
+            <button (click)="logout()" class="btn btn-sm my-2 my-sm-0">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </nav>
+    <hr>
+</div>
+
 <router-outlet></router-outlet>

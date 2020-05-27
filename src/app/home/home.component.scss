@@ -15,3 +15,27 @@ label {
     margin-top: 1vh;
     margin-bottom: 1vh;
 }
+
+input[type="text"], select.form-control {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #888888;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+input[type="text"]:focus, button[class="btn"]:focus, select.form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.col-sm-half {
+    @mixin custom-col{
+        @include make-col-ready();
+
+        @include media-breakpoint-up(sm) {
+            @include make-col(0.5);
+          }
+    }    
+}

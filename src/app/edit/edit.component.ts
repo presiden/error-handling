@@ -3,10 +3,8 @@ import { Doc } from "../models/document.model";
 import { DocFilter } from "../models/document-filter.model";
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { Subscription, Observable } from 'rxjs';
 import { DocumentService } from '../services/document.service';
 import { SharedService } from '../services/shared.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit',
@@ -15,12 +13,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class EditComponent implements OnInit {
   docFilter: DocFilter = new DocFilter();
-  docOld: Doc = new Doc();
   doc: Doc = new Doc();
-  previousUrl: string;
 
   constructor(private docService: DocumentService, private dataRoute: ActivatedRoute, private router: Router, private location: Location, private documentService: DocumentService, private sharedService: SharedService) {
-  
+    if (!localStorage.getItem("isLoggedIn")) {
+      this.router.navigateByUrl("");
+      return;
+    }
+
     this.docFilter = this.sharedService.docFilter;
 
     this.doc.doc = this.sharedService.doc.doc;
@@ -59,7 +59,7 @@ export class EditComponent implements OnInit {
     this.docFilter.listDocument.find(i => i.id == this.doc.id).status = this.doc.status;
     this.docFilter.listDocument.find(i => i.id == this.doc.id).timestamps = this.doc.timestamps;
     this.docFilter.listDocument.find(i => i.id == this.doc.id).type = this.doc.type;
-    // this.sharedService.saveDetail(this.docFilter);
+    
     this.router.navigateByUrl("/home");
   }
 

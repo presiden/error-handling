@@ -8,6 +8,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddComponent } from './add/add.component';
+import { EditComponent } from './edit/edit.component';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -15,7 +17,9 @@ AppModule = __decorate([
         declarations: [
             AppComponent,
             HomeComponent,
-            LoginComponent
+            LoginComponent,
+            AddComponent,
+            EditComponent
         ],
         imports: [
             BrowserModule,

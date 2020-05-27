@@ -3,6 +3,7 @@ import { QueryLa } from '../models/query.model';
 import { DocumentService } from '../services/document.service';
 import { Doc } from "../models/document.model";
 import { LifeAsiaDocument } from '../models/lifeasia-document.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add',
@@ -10,11 +11,21 @@ import { LifeAsiaDocument } from '../models/lifeasia-document.model';
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
+  // displayMenu: boolean = true;
   doc: Doc = new Doc();
   queryLa: QueryLa;
   docLa: LifeAsiaDocument;
 
+<<<<<<< HEAD
+  constructor(private docService: DocumentService, private router: Router) {
+    if (!localStorage.getItem("isLoggedIn")) {
+      this.router.navigateByUrl("");
+      return;
+    }
+
+=======
   constructor(private docService: DocumentService) {
+>>>>>>> 627a1e6bfea3cf0aebbe593c76c73d01d39d1405
     this.queryLa = new QueryLa();
     this.queryLa.tableName = "";
     this.queryLa.clause = "";
@@ -28,7 +39,11 @@ export class AddComponent implements OnInit {
     let tblname = this.queryLa.tableName == "" ? "[input table name]" : this.queryLa.tableName;
     let clause = this.queryLa.clause == "" ? "[input filter]" : this.queryLa.clause;
 
+<<<<<<< HEAD
+    this.queryLa.query = "select rrn(a) as rrn, a.* from cmoddta." + tblname + " as a " + clause;
+=======
     this.queryLa.query = "select * from " + tblname + " where " + clause;
+>>>>>>> 627a1e6bfea3cf0aebbe593c76c73d01d39d1405
   }
 
   public queryLifeAsia() {

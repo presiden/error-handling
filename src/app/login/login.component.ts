@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule, ElementRef } from '@angular/core';
+import { Component, OnInit, NgModule, ElementRef, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { Login } from "../models/login.model";
 import { FormBuilder } from '@angular/forms';
 import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,11 @@ import { LoginService } from '../services/login.service';
 export class LoginComponent implements OnInit {
   user: Login;
 
-  constructor(private http: HttpClient, private loginService: LoginService) {
+  constructor(private http: HttpClient, private loginService: LoginService, private router: Router) {
+    if(localStorage.getItem("isLoggedIn")){
+      this.router.navigateByUrl("/home");  
+      return;
+    }
   }
 
   ngOnInit(): void {
@@ -35,7 +40,10 @@ export class LoginComponent implements OnInit {
 
       if (this.user.username != null) {
         console.log("login success");
+        localStorage.setItem('isLoggedIn', "true");
+        this.router.navigateByUrl("/home");
       } else {
+        localStorage.setItem('isLoggedIn', "false");
         console.log("login failed");
       }
 
