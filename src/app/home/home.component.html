@@ -1,6 +1,5 @@
 <div class=container-fluid>
     <div class="row">
-<<<<<<< HEAD
         <div class="col-sm-12">
             <form class="form-group">
                 <div class="row justify-content-end">
@@ -15,28 +14,11 @@
                                 <div class="input-group-append">
                                     <button class="btn" (click)="df.toggle()" type="button"><i
                                             class="far fa-calendar-alt fa-lg"></i></button>
-=======
-        <div class="col-md-12">
-            <form class="form-group">
-                <div class="row justify-content-end">
-                    <div class="col-md-1">
-                        <label for="toLabel">From</label>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input #dfrom class="form-control form-control-sm" placeholder="yyyy-mm-dd"
-                                    name="dateFrom" [(ngModel)]="modelFrom" ngbDatepicker #df="ngbDatepicker">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary calendar" (click)="df.toggle()"
-                                        type="button"></button>
->>>>>>> 627a1e6bfea3cf0aebbe593c76c73d01d39d1405
                                 </div>
                             </div>
                         </div>
                     </div>
 
-<<<<<<< HEAD
                     <div class="col-sm-half">
                         <label for="toLabel">To</label>
                     </div>
@@ -48,36 +30,16 @@
                                 <div class="input-group-append">
                                     <button class="btn" (click)="dt.toggle()" type="button"><i
                                             class="far fa-calendar-alt fa-lg"></i></button>
-=======
-                    <div class="col-md-1">
-                        <label for="toLabel">To</label>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input #dto class="form-control form-control-sm" placeholder="yyyy-mm-dd" name="dateTo"
-                                    [(ngModel)]="modelTo" ngbDatepicker #dt="ngbDatepicker">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary calendar" (click)="dt.toggle()"
-                                        type="button"></button>
->>>>>>> 627a1e6bfea3cf0aebbe593c76c73d01d39d1405
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-end">
-<<<<<<< HEAD
                     <div class="col-sm-half">
                         <label for="typeLabel">Type</label>
                     </div>
                     <div class="col-sm-2">
-=======
-                    <div class="col-md-1">
-                        <label for="typeLabel">Type</label>
-                    </div>
-                    <div class="col-md-2">
->>>>>>> 627a1e6bfea3cf0aebbe593c76c73d01d39d1405
                         <select #type id="typeDoc" class="form-control form-control-sm" [(ngModel)]="docFilter.type"
                             name="type">
                             <option *ngFor="let x of types" [value]="x.name" [selected]="x.name==docFilter.type">
@@ -87,11 +49,7 @@
                 </div>
                 <br>
                 <div class="row justify-content-end">
-<<<<<<< HEAD
                     <div class="col-sm-2">
-=======
-                    <div class="col-md-2">
->>>>>>> 627a1e6bfea3cf0aebbe593c76c73d01d39d1405
                         <button (click)="getDocument(dfrom.value, dto.value, type.value)"
                             class="btn btn-primary btn-sm btn-block">Search</button>
                     </div>
@@ -100,13 +58,12 @@
         </div>
     </div>
 
-<<<<<<< HEAD
     <div class="tbl-filter">
         <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
     </div>
-    <div class="tbl-container mat-elevation-z8">
+    <div class="tbl-container mat-elevation-z8 mb">
         <mat-table [dataSource]="dataSource" matSort>
             <!-- ID Column -->
             <ng-container matColumnDef="id">
@@ -166,39 +123,7 @@
             </mat-row>
         </mat-table>
 
-        <mat-paginator [pageSizeOptions]="[2, 5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-=======
-    <div class="table-responsive">
-        <table id="docTable" class="table table-sm table-hover mt text-nowrap">
-            <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Doc ID</th>
-                    <th scope="col">Table Name</th>
-                    <th scope="col">Error Message</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">State</th>
-                    <th scope="col">Timestamp</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let doc of docFilter?.listDocument; let i = index">
-                    <td>{{i + 1}}</td>
-                    <td><a href="javascript:void(0);" (click)="editDetail(doc.id)">{{doc.id}}</a></td>
-                    <td>{{doc.src_table_name}}</td>
-                    <td>{{doc.error_message}}</td>
-                    <td>{{doc.type}}</td>
-                    <td>{{doc.status}}</td>
-                    <td>{{doc.state}}</td>
-                    <td>{{doc.timestamps}}</td>
-                    <td *ngIf="doc.status!='Submitted' && doc.type != 'Eventing'" ><button (click)="pushErrToKafka(doc.id)"
-                            class="btn btn-primary btn-sm">Resubmit</button></td>
-                </tr>
-            </tbody>
-        </table>
->>>>>>> 627a1e6bfea3cf0aebbe593c76c73d01d39d1405
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons></mat-paginator>
     </div>
 </div>
 
